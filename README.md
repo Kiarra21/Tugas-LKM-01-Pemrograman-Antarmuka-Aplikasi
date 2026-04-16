@@ -10,7 +10,7 @@ Project ini adalah REST API bertema Perpustakaan Digital yang dibangun dengan La
 - Framework: Laravel 12
 - Database: MySQL atau MariaDB
 - Dokumentasi API: Swagger (L5 Swagger)
-- Auth API: Laravel Sanctum (terpasang)
+- Auth API: JWT (tymon/jwt-auth) + Role-based access
 
 ## Langkah Instalasi Dan Menjalankan Project
 
@@ -57,13 +57,26 @@ Catatan:
 
 ## Daftar Endpoint API
 
-| Method    | URL               | Keterangan                                                                   |
-| --------- | ----------------- | ---------------------------------------------------------------------------- |
-| GET       | /api/books        | Ambil daftar buku (mendukung filter title, category_id, author_id, per_page) |
-| POST      | /api/books        | Tambah data buku baru                                                        |
-| GET       | /api/books/{book} | Ambil detail buku berdasarkan ID                                             |
-| PUT/PATCH | /api/books/{book} | Update data buku berdasarkan ID                                              |
-| DELETE    | /api/books/{book} | Hapus data buku berdasarkan ID                                               |
+| Method    | URL                         | Keterangan                              |
+| --------- | --------------------------- | --------------------------------------- |
+| POST      | /api/register               | Register akun baru (default role: user) |
+| POST      | /api/login                  | Login dan mendapatkan JWT token         |
+| GET       | /api/books                  | Lihat daftar buku (admin, user)         |
+| GET       | /api/books/{book}           | Lihat detail buku (admin, user)         |
+| POST      | /api/books                  | Tambah buku (admin only)                |
+| PUT/PATCH | /api/books/{book}           | Ubah buku (admin only)                  |
+| DELETE    | /api/books/{book}           | Hapus buku (admin only)                 |
+| GET       | /api/borrowings             | Lihat daftar peminjaman (admin, user)   |
+| GET       | /api/borrowings/{borrowing} | Lihat detail peminjaman (admin, user)   |
+| POST      | /api/borrowings             | Tambah peminjaman (admin only)          |
+| PUT/PATCH | /api/borrowings/{borrowing} | Ubah peminjaman (admin only)            |
+| DELETE    | /api/borrowings/{borrowing} | Hapus peminjaman (admin only)           |
+
+## Aturan Akses Endpoint
+
+- Semua endpoint selain `register` dan `login` wajib menggunakan JWT token (`Authorization: Bearer <token>`).
+- Role `admin`: dapat melakukan CRUD pada books dan borrowings.
+- Role `user`: hanya dapat membaca data books dan borrowings (GET).
 
 ## Format Response JSON
 
