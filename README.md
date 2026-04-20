@@ -102,4 +102,4 @@ Operasi database menggunakan Eloquent ORM Laravel yang menerapkan parameter bind
 ## Link Video Presentasi
 
 Isi link video presentasi pada bagian ini:
-https://youtu.be/ganti-dengan-link-video-presentasi
+https://youtu.be/TL11coRE_6M
